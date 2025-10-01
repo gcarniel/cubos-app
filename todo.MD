@@ -17,12 +17,12 @@ Use esta checklist para organizar o trabalho e acompanhar o progresso. Marque ca
 #### 1) Design e Temas
 
 - [ ] Definir tokens de design (cores, tipografia, espaçamentos, sombras)
-- [ ] Implementar tema escuro como padrão
-- [ ] Alternância claro/escuro:
-  - [ ] Botão no canto superior direito
+- [x] Implementar tema escuro como padrão
+- [x] Alternância claro/escuro:
+  - [x] Botão no canto superior direito
   - [ ] Persistência em localStorage
   - [ ] Variáveis CSS ou Theme Provider
-- [ ] Usar paleta Radix Colors
+- [x] Usar paleta Radix Colors
 - [ ] Acessibilidade mínima (contraste AA, estados de foco visíveis)
 
 #### 2) Responsividade
@@ -102,16 +102,16 @@ Use esta checklist para organizar o trabalho e acompanhar o progresso. Marque ca
 - [x] Setup Next.js
 - [ ] Router (react-router-dom)
 - [ ] State/data fetching (React Query/Zustand/Context)
-- [ ] Design system básico (tokens + Button/Input/Modal/Card)
+- [x] Design system básico (tokens + Button/Input/Modal/Card)
 - [ ] Utilitários de data e moeda (date-fns/dayjs; Intl.NumberFormat)
-- [ ] Feedbacks: toasts, loaders, estados vazios e erros
+- [x] Feedbacks: toasts, loaders, estados vazios e erros
 
 #### 10) Frontend — Páginas e Fluxos
 
-- [ ] Login
-  - [ ] E-mail e senha (validação e mensagens de erro)
-  - [ ] Redireciona para lista ao logar
-  - [ ] Se autenticado, redireciona para lista
+- [x] Login
+  - [x] E-mail e senha (validação e mensagens de erro)
+  - [x] Redireciona para lista ao logar
+  - [x] Se autenticado, redireciona para lista
 - [ ] Cadastro
   - [ ] Nome, E-mail, Senha, Confirmação (validação forte)
   - [ ] Se autenticado, redireciona para lista

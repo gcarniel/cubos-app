@@ -7,6 +7,8 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 
 import Background from '@/assets/background.png'
+import { Toaster } from 'sonner'
+import { SessionProvider } from 'next-auth/react'
 
 const inter = Inter({
   weight: ['400', '500', '600', '700'],
@@ -26,7 +28,7 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: 'Cubos App',
+  title: 'Cubos Movies',
   description: 'criado por Cubos app',
 }
 
@@ -46,20 +48,23 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main
-            className="max-w-[1366px] min-w-[414px] mx-auto w-full h-full"
-            style={{
-              backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,1) 50%), url(${Background.src})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-              backgroundAttachment: 'fixed',
-            }}
-          >
-            {children}
-          </main>
-          <Footer />
+          <SessionProvider>
+            <Header />
+            <main
+              className="max-w-[1366px] min-w-[414px] mx-auto w-full h-full"
+              style={{
+                backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,1) 50%), url(${Background.src})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundAttachment: 'fixed',
+              }}
+            >
+              {children}
+              <Toaster position="top-right" richColors closeButton />
+            </main>
+            <Footer />
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>
