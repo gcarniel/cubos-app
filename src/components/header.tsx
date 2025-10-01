@@ -1,5 +1,3 @@
-'use client'
-
 import { ThemeToggle } from './theme-toggle'
 
 import { Button } from './ui/button'
