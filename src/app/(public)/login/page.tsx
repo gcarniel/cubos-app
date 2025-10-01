@@ -16,7 +16,7 @@ import { toast } from 'sonner'
 import { signIn } from 'next-auth/react'
 import { ShowError } from '@/components/show-error'
 
-export default function Login() {
+export default function LoginPage() {
   const {
     handleSubmit,
     register,

@@ -3,11 +3,6 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import {
-  signInFormSchema,
-  SignInFormType,
-} from '@/features/login/types/sign-in-schema'
-import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
@@ -20,7 +15,7 @@ import {
   RegisterFormType,
 } from '@/features/register/types/register-schema'
 
-export default function Login() {
+export default function RegisterPage() {
   const {
     handleSubmit,
     register,
