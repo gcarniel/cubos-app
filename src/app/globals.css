@@ -20,6 +20,8 @@
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
   --color-secondary-hover: var(--secondary-hover);
+  --color-secondary-disabled: var(--secondary-disabled);
+  --color-secondary-disabled-foreground: var(--secondary-disabled-foreground);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -43,10 +45,15 @@
   --primary: #8E4EC6;
   --primary-hover: #9A5CD0;
   --primary-foreground: #FFFFFF;
+  --primary-disabled: #6F6D78;
+  --primary-disabled-foreground: #ECE9FD7D;
 
   --secondary: #B744F714;
   --secondary-hover: #C150FF2E;
   --secondary-foreground: #F1DDFFFA;
+  --secondary-disabled: #B744F714;
+  --secondary-disabled-foreground: #F1DDFFFA;
+
   --muted: #6F6D78;
   --muted-foreground: #ECE9FD7D;
   --border: #3C393F;
@@ -72,10 +79,14 @@
   --primary: #8E4EC6;
   --primary-hover: #9A5CD0;
   --primary-foreground: #FFFFFF;
+  --primary-disabled: #6F6D78;
+  --primary-disabled-foreground: #ECE9FD7D;
 
   --secondary: #B744F714;
   --secondary-hover: #C150FF2E;
   --secondary-foreground: #F1DDFFFA;
+  --secondary-disabled: #EBEAF814;
+  --secondary-disabled-foreground: #ECE9FD7D;
 
   --muted: #6F6D78;
   --muted-foreground: #ECE9FD7D;
