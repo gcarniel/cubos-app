@@ -1,6 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { MovieRegister, movieRegisterSchema } from '../movie/types/movie'
+import {
+  MovieRegister,
+  movieRegisterSchema,
+} from '../movie/types/movies-register-schema'
 
 export function useMovieRegister() {
   const form = useForm<MovieRegister>({

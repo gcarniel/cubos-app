@@ -3,7 +3,6 @@
 import {
   Sheet,
   SheetContent,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -24,18 +23,18 @@ export function MovieRegister() {
   console.log(formState.errors)
 
   return (
-    <Sheet defaultOpen>
+    <Sheet>
       <SheetTrigger>Open</SheetTrigger>
-      <SheetContent className="md:w-md">
+      <SheetContent className="md:w-md p-4">
         <SheetHeader>
-          <SheetTitle>Adicionar Filme</SheetTitle>
+          <SheetTitle className="font-bold ">Adicionar Filme</SheetTitle>
         </SheetHeader>
 
         <form
           onSubmit={form.handleSubmit(handlers.handleSubmit)}
           className="flex flex-col gap-4 h-full"
         >
-          <section className="flex flex-col gap-4 p-4 h-5/6 overflow-y-auto">
+          <section className="flex flex-col gap-4 h-5/6 overflow-y-auto p-4">
             <div className="flex flex-col gap-2">
               <Label htmlFor="title">Título</Label>
               <Input id="title" type="text" {...register('title')} />
@@ -94,7 +93,7 @@ export function MovieRegister() {
               </div>
 
               <div className="flex flex-col gap-2">
-                <Label htmlFor="vote_count">Quantidade de votos</Label>
+                <Label htmlFor="vote_count">Qtd. votos</Label>
                 <Input
                   id="vote_count"
                   type="text"
@@ -118,7 +117,7 @@ export function MovieRegister() {
               </div>
 
               <div className="flex flex-col gap-2 w-full">
-                <Label htmlFor="release_date">Data de lançamento</Label>
+                <Label htmlFor="release_date">Data lançamento</Label>
                 <Controller
                   name="releaseDate"
                   control={form.control}
