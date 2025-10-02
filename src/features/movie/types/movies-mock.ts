@@ -1,5 +1,6 @@
 export const movies = [
   {
+    id: '1',
     popularity: 8.5,
     release_date: '2023-07-21',
     title: 'Oppenheimer',
@@ -14,8 +15,14 @@ export const movies = [
     sinopsis:
       'The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb during World War II.',
     genre: 'Biography, Drama, History',
+    poster_url:
+      'https://movienonsense.com/wp-content/uploads/2023/12/oppenheimer.jpg',
+    cover_url:
+      'https://movienonsense.com/wp-content/uploads/2023/12/oppenheimer.jpg',
+    trailer_url: 'https://www.youtube.com/watch?v=F3OxA9Cz17A',
   },
   {
+    id: '2',
     popularity: 9.2,
     release_date: '2023-07-19',
     title: 'Barbie',
@@ -32,6 +39,7 @@ export const movies = [
     genre: 'Adventure, Comedy, Fantasy',
   },
   {
+    id: '3',
     popularity: 7.8,
     release_date: '2024-03-15',
     title: 'Dune: Part Two',
@@ -48,6 +56,7 @@ export const movies = [
     genre: 'Science Fiction, Adventure',
   },
   {
+    id: '4',
     popularity: 6.9,
     release_date: '2023-11-22',
     title: 'The Hunger Games: The Ballad of Songbirds & Snakes',
@@ -64,6 +73,7 @@ export const movies = [
     genre: 'Action, Adventure, Drama',
   },
   {
+    id: '5',
     popularity: 8.1,
     release_date: '2024-05-24',
     title: 'Furiosa: A Mad Max Saga',
@@ -80,6 +90,7 @@ export const movies = [
     genre: 'Action, Adventure, Science Fiction',
   },
   {
+    id: '6',
     popularity: 7.3,
     release_date: '2023-10-06',
     title: 'The Creator',
@@ -96,6 +107,7 @@ export const movies = [
     genre: 'Science Fiction, Action, Thriller',
   },
   {
+    id: '7',
     popularity: 9.5,
     release_date: '2025-05-02',
     title: 'Avengers: Secret Wars',
@@ -112,6 +124,7 @@ export const movies = [
     genre: 'Action, Adventure, Science Fiction',
   },
   {
+    id: '8',
     popularity: 6.7,
     release_date: '2023-09-15',
     title: 'A Haunting in Venice',
@@ -128,6 +141,7 @@ export const movies = [
     genre: 'Mystery, Thriller, Crime',
   },
   {
+    id: '9',
     popularity: 8.9,
     release_date: '2024-06-14',
     title: 'Inside Out 2',
@@ -144,6 +158,7 @@ export const movies = [
     genre: 'Animation, Family, Adventure',
   },
   {
+    id: '10',
     popularity: 7.5,
     release_date: '2024-02-16',
     title: 'Madame Web',
@@ -160,6 +175,7 @@ export const movies = [
     genre: 'Action, Science Fiction',
   },
   {
+    id: '11',
     popularity: 8.3,
     release_date: '2025-07-25',
     title: 'Mission: Impossible - The Final Reckoning',
@@ -176,6 +192,7 @@ export const movies = [
     genre: 'Action, Thriller, Adventure',
   },
   {
+    id: '12',
     popularity: 6.4,
     release_date: '2023-12-15',
     title: 'Wonka',
@@ -192,6 +209,7 @@ export const movies = [
     genre: 'Family, Fantasy, Comedy',
   },
   {
+    id: '13',
     popularity: 7.1,
     release_date: '2024-08-09',
     title: 'Alien: Romulus',
@@ -208,6 +226,7 @@ export const movies = [
     genre: 'Horror, Science Fiction, Thriller',
   },
   {
+    id: '14',
     popularity: 9.1,
     release_date: '2025-11-07',
     title: 'Superman: Legacy',
@@ -224,6 +243,7 @@ export const movies = [
     genre: 'Action, Adventure, Science Fiction',
   },
   {
+    id: '15',
     popularity: 5.8,
     release_date: '2023-08-18',
     title: 'Blue Beetle',
@@ -240,6 +260,7 @@ export const movies = [
     genre: 'Action, Science Fiction, Adventure',
   },
   {
+    id: '16',
     popularity: 8.7,
     release_date: '2024-11-22',
     title: 'Wicked',
@@ -256,6 +277,7 @@ export const movies = [
     genre: 'Fantasy, Musical, Romance',
   },
   {
+    id: '17',
     popularity: 6.2,
     release_date: '2024-04-05',
     title: 'Ghostbusters: Frozen Empire',
@@ -272,6 +294,7 @@ export const movies = [
     genre: 'Fantasy, Adventure, Comedy',
   },
   {
+    id: '18',
     popularity: 7.9,
     release_date: '2024-09-06',
     title: 'Beetlejuice Beetlejuice',
@@ -288,6 +311,7 @@ export const movies = [
     genre: 'Comedy, Fantasy, Horror',
   },
   {
+    id: '19',
     popularity: 5.5,
     release_date: '2023-10-20',
     title: 'Killers of the Flower Moon',
@@ -304,6 +328,7 @@ export const movies = [
     genre: 'Crime, Drama, History',
   },
   {
+    id: '20',
     popularity: 8.4,
     release_date: '2025-02-14',
     title: 'Captain America: Brave New World',
@@ -319,4 +344,7 @@ export const movies = [
       'After meeting with newly elected U.S. President Thaddeus Ross, Sam Wilson finds himself in the middle of an international incident. He must discover the reason behind a nefarious global plot before the true mastermind has the entire world seeing red.',
     genre: 'Action, Adventure, Science Fiction',
   },
-] as const
+].map((movie) => ({
+  ...movie,
+  genre: movie.genre.split(',').map((g) => g.trim()),
+}))

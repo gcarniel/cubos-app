@@ -1,4 +1,5 @@
 export type Movie = {
+  id: string
   popularity: number
   release_date: string
   title: string
@@ -11,5 +12,10 @@ export type Movie = {
   revenue: number
   profit: number
   sinopsis: string
-  genre: string
+  genre: string[]
+  poster_url: string
+  cover_url: string
+  language: string
+  trailer_url: string
+  status: 'released' | 'upcoming'
 }
