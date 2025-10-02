@@ -3,11 +3,13 @@
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination'
+import { useEffect, useState } from 'react'
 
 interface PaginationCustomProps {
   page: number
@@ -27,7 +29,9 @@ export function PaginationCustom({
   const isFirstPage = page === 1
   const isLastPage = page === totalPages
 
-  const maxPagesToShow = 5
+  const [isMobile, setIsMobile] = useState(false)
+
+  const maxPagesToShow = isMobile ? 3 : 5
 
   const getPageRange = () => {
     const pages: number[] = []
@@ -55,6 +59,20 @@ export function PaginationCustom({
 
   const pagesToShow = getPageRange()
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 480)
+    }
+
+    window.addEventListener('resize', handleResize)
+    handleResize()
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   return (
     <Pagination className="mt-4">
       <PaginationContent>
@@ -78,6 +96,12 @@ export function PaginationCustom({
             </PaginationItem>
           )
         })}
+
+        {isMobile && page !== totalPages && (
+          <PaginationItem className="cursor-not-allowed">
+            <PaginationEllipsis />
+          </PaginationItem>
+        )}
 
         <PaginationItem>
           <PaginationNext
