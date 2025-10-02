@@ -1,6 +1,7 @@
 import { Input } from '@/components/ui/input'
 import { SearchIcon } from '@/icons/search-icon'
 import { Button } from '@/components/ui/button'
+import { MovieRegister } from './movie-register'
 
 export function MoviesDashboard() {
   return (
@@ -20,6 +21,7 @@ export function MoviesDashboard() {
           Adicionar Filme
         </Button>
       </div>
+      <MovieRegister />
     </section>
   )
 }
