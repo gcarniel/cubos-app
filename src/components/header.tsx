@@ -15,7 +15,7 @@ export default function Header() {
 
   return (
     <header className="border-b">
-      <div className="flex items-center justify-between h-18 p-4 container max-w-[1366px] min-w-[414px] mx-auto">
+      <div className="flex items-center justify-between h-18 p-4 container max-w-[1366px] min-w-[314px] mx-auto">
         <div className="flex items-center gap-4 flex-1">
           <Link href={routesMap.root}>
             <LogoSvg className="text-black dark:text-white" />

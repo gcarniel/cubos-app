@@ -51,7 +51,7 @@ export default function RootLayout({
           <SessionProvider>
             <Header />
             <main
-              className="max-w-[1366px] min-w-[414px] mx-auto w-full h-full"
+              className="max-w-[1366px] min-w-[314px] mx-auto w-full h-full overflow-y-auto"
               style={{
                 backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,1) 50%), url(${Background.src})`,
                 backgroundSize: 'cover',
