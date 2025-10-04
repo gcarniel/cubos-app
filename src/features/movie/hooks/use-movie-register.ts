@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import {
   MovieRegister,
   movieRegisterSchema,
-} from '../movie/types/movies-register-schema'
+} from '../types/movies-register-schema'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import api from '@/lib/api'
 import { toast } from 'sonner'

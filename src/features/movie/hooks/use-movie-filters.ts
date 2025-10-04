@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import {
   MovieFilters,
   movieFiltersSchema,
-} from '../movie/types/movies-filters-schema'
+} from '../types/movies-filters-schema'
 import { useMovies } from './use-movies'
 
 export function useMovieFilters() {
