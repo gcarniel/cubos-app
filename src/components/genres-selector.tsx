@@ -21,7 +21,7 @@ export function GenreSelector({
       value: option.id,
       label: option.name,
     }))
-    .filter((option) => value.some((value) => value.id === option.value))
+    .filter((option) => !value.some((value) => value.id === option.value))
 
   return (
     <div className="*:not-first:mt-2">
