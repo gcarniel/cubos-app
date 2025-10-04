@@ -4,6 +4,9 @@ import {
   MovieRegister,
   movieRegisterSchema,
 } from '../movie/types/movies-register-schema'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import api from '@/lib/api'
+import { toast } from 'sonner'
 
 export function useMovieRegister() {
   const form = useForm<MovieRegister>({
@@ -28,8 +31,19 @@ export function useMovieRegister() {
     },
   })
 
-  const handleSubmit = (data: MovieRegister) => {
-    console.log(data)
+  const { mutateAsync } = useMutation({
+    mutationFn: (data: MovieRegister) => api.post('/movies', data),
+  })
+
+  const { data: genres } = useQuery({
+    queryKey: ['genres'],
+    queryFn: () => api.get('/movies/genres').then((res) => res.data),
+    retry: 1,
+  })
+
+  const handleSubmit = async (data: MovieRegister) => {
+    await mutateAsync(data)
+    toast.success('Filme adicionado com sucesso')
   }
 
   return {
@@ -37,5 +51,6 @@ export function useMovieRegister() {
     handlers: {
       handleSubmit,
     },
+    data: { genres },
   }
 }

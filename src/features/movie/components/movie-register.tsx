@@ -15,9 +15,10 @@ import { Textarea } from '@/components/ui/textarea'
 import { Controller } from 'react-hook-form'
 import { DatePicker } from '@/components/date-picker'
 import { ShowError } from '@/components/show-error'
+import { GenreSelector } from '@/components/genres-selector'
 
 export function MovieRegister() {
-  const { form, handlers } = useMovieRegister()
+  const { form, handlers, data } = useMovieRegister()
   const { register, formState } = form
 
   console.log(formState.errors)
@@ -32,9 +33,9 @@ export function MovieRegister() {
 
         <form
           onSubmit={form.handleSubmit(handlers.handleSubmit)}
-          className="flex flex-col gap-4 h-full"
+          className="flex flex-col gap-4 h-full justify-between overflow-y-auto"
         >
-          <section className="flex flex-col gap-4 h-5/6 overflow-y-auto p-4">
+          <section className="flex-1 flex flex-col gap-4 max-h-[800px] overflow-y-auto p-4">
             <div className="flex flex-col gap-2">
               <Label htmlFor="title">Título</Label>
               <Input id="title" type="text" {...register('title')} />
@@ -51,22 +52,50 @@ export function MovieRegister() {
               <ShowError name="originalTitle" errors={form.formState.errors} />
             </div>
 
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="genre">Gêneros</Label>
+              <Controller
+                name="genre"
+                control={form.control}
+                render={({ field }) => (
+                  <GenreSelector
+                    value={field.value}
+                    options={data.genres}
+                    onChange={(value) => field.onChange(value)}
+                  />
+                )}
+              />
+              <ShowError name="genre" errors={form.formState.errors} />
+            </div>
+
             <div className="flex gap-2">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="budget">Orçamento ($)</Label>
-                <Input id="budget" type="text" {...register('budget')} />
+                <Input
+                  id="budget"
+                  type="text"
+                  {...register('budget', { valueAsNumber: true })}
+                />
                 <ShowError name="budget" errors={form.formState.errors} />
               </div>
 
               <div className="flex flex-col gap-2">
                 <Label htmlFor="revenue">Receita ($)</Label>
-                <Input id="revenue" type="text" {...register('revenue')} />
+                <Input
+                  id="revenue"
+                  type="text"
+                  {...register('revenue', { valueAsNumber: true })}
+                />
                 <ShowError name="revenue" errors={form.formState.errors} />
               </div>
 
               <div className="flex flex-col gap-2">
                 <Label htmlFor="profit">Lucro ($)</Label>
-                <Input id="profit" type="text" {...register('profit')} />
+                <Input
+                  id="profit"
+                  type="text"
+                  {...register('profit', { valueAsNumber: true })}
+                />
                 <ShowError name="profit" errors={form.formState.errors} />
               </div>
             </div>
@@ -106,7 +135,11 @@ export function MovieRegister() {
             <div className="flex gap-2">
               <div className="flex flex-col gap-2 w-full">
                 <Label htmlFor="duration">Duração (min)</Label>
-                <Input id="duration" type="text" {...register('duration')} />
+                <Input
+                  id="duration"
+                  type="text"
+                  {...register('duration', { valueAsNumber: true })}
+                />
                 <ShowError name="duration" errors={form.formState.errors} />
               </div>
 
@@ -205,8 +238,10 @@ export function MovieRegister() {
             </div>
           </section>
 
-          <div className="flex justify-end items-end gap-2 h-1/6 ">
-            <Button variant="secondary">Cancelar</Button>
+          <div className="flex justify-end items-end gap-2 h-fit">
+            <Button type="button" variant="secondary">
+              Cancelar
+            </Button>
             <Button type="submit">Adicionar Filme</Button>
           </div>
         </form>
