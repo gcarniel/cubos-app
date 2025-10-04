@@ -9,6 +9,7 @@ import Footer from '@/components/footer'
 import Background from '@/assets/background.png'
 import { Toaster } from 'sonner'
 import { SessionProvider } from 'next-auth/react'
+import { QueryProvider } from '@/providers/query-provider'
 
 const inter = Inter({
   weight: ['400', '500', '600', '700'],
@@ -60,7 +61,7 @@ export default function RootLayout({
                 backgroundAttachment: 'fixed',
               }}
             >
-              {children}
+              <QueryProvider>{children}</QueryProvider>
               <Toaster position="top-right" richColors closeButton />
             </main>
             <Footer />
