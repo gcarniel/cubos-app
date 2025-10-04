@@ -34,6 +34,7 @@
     "react-player": "^3.3.3",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
+    "use-mask-input": "^3.5.2",
     "zod": "^4.1.11",
     "zustand": "^5.0.8"
   },

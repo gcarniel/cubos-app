@@ -7,8 +7,10 @@ import {
 import { useMutation, useQuery } from '@tanstack/react-query'
 import api from '@/lib/api'
 import { toast } from 'sonner'
+import { useMovieStore } from '../store/movie-store'
 
 export function useMovieRegister() {
+  const { setOpenRegisterModal } = useMovieStore()
   const form = useForm<MovieRegister>({
     resolver: zodResolver(movieRegisterSchema),
     defaultValues: {
@@ -26,13 +28,22 @@ export function useMovieRegister() {
       voteAverage: 0,
       voteCount: 0,
       posterUrl: '',
-      coverUrl: '',
+      coverUrl: null,
       trailerUrl: '',
     },
   })
 
   const { mutateAsync } = useMutation({
     mutationFn: (data: MovieRegister) => api.post('/movies', data),
+  })
+
+  const { mutateAsync: uploadFile, isPending: isUploadingFile } = useMutation({
+    mutationFn: (formData: FormData) =>
+      api.post('/files/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }),
   })
 
   const { data: genres } = useQuery({
@@ -44,13 +55,32 @@ export function useMovieRegister() {
   const handleSubmit = async (data: MovieRegister) => {
     await mutateAsync(data)
     toast.success('Filme adicionado com sucesso')
+    form.reset()
+    setOpenRegisterModal(false)
+  }
+
+  const handleUploadFile = async (file: File) => {
+    if (!file) return
+
+    if (file.size > 1024 * 1024 * 5) {
+      toast.error('Arquivo deve ter no máximo 5MB')
+      return
+    }
+
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const response = await uploadFile(formData)
+    toast.success('Arquivo enviado com sucesso')
+    return response.data
   }
 
   return {
     form,
     handlers: {
+      handleUploadFile,
       handleSubmit,
     },
-    data: { genres },
+    data: { genres, isUploadingFile },
   }
 }

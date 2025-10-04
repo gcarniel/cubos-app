@@ -1,10 +1,15 @@
+'use client'
+
 import { Input } from '@/components/ui/input'
 import { SearchIcon } from '@/icons/search-icon'
 import { Button } from '@/components/ui/button'
 import { MovieRegister } from './movie-register'
 import { MovieFilters } from './movie-filters'
+import { useMovieStore } from '@/features/movie/store/movie-store'
 
 export function MoviesDashboard() {
+  const { setOpenRegisterModal } = useMovieStore()
+
   return (
     <section className="flex flex-col sm:flex-row justify-end gap-2">
       <div className="flex items-center gap-2 relative w-full sm:w-[488px]">
@@ -18,7 +23,11 @@ export function MoviesDashboard() {
         <Button variant="secondary" className="flex-1">
           Filtros
         </Button>
-        <Button variant="default" className="flex-2">
+        <Button
+          variant="default"
+          className="flex-2"
+          onClick={() => setOpenRegisterModal(true)}
+        >
           Adicionar Filme
         </Button>
       </div>

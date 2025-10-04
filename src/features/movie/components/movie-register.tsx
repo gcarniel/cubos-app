@@ -5,7 +5,6 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from '@/components/ui/sheet'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
@@ -16,16 +15,18 @@ import { Controller } from 'react-hook-form'
 import { DatePicker } from '@/components/date-picker'
 import { ShowError } from '@/components/show-error'
 import { GenreSelector } from '@/components/genres-selector'
+import { useMovieStore } from '@/features/movie/store/movie-store'
+import InputFile from '@/components/input-file'
+import { useHookFormMask } from 'use-mask-input'
 
 export function MovieRegister() {
   const { form, handlers, data } = useMovieRegister()
-  const { register, formState } = form
-
-  console.log(formState.errors)
+  const { register } = form
+  const { openRegisterModal, setOpenRegisterModal } = useMovieStore()
+  const registerWithMask = useHookFormMask(form.register)
 
   return (
-    <Sheet>
-      <SheetTrigger>Open</SheetTrigger>
+    <Sheet open={openRegisterModal} onOpenChange={setOpenRegisterModal}>
       <SheetContent className="md:w-md p-4">
         <SheetHeader>
           <SheetTitle className="font-bold ">Adicionar Filme</SheetTitle>
@@ -70,31 +71,37 @@ export function MovieRegister() {
 
             <div className="flex gap-2">
               <div className="flex flex-col gap-2">
-                <Label htmlFor="budget">Orçamento ($)</Label>
+                <Label htmlFor="budget">Orçamento (R$)</Label>
                 <Input
                   id="budget"
                   type="text"
-                  {...register('budget', { valueAsNumber: true })}
+                  {...registerWithMask('budget', 'brl-currency', {
+                    valueAsNumber: true,
+                  })}
                 />
                 <ShowError name="budget" errors={form.formState.errors} />
               </div>
 
               <div className="flex flex-col gap-2">
-                <Label htmlFor="revenue">Receita ($)</Label>
+                <Label htmlFor="revenue">Receita (R$)</Label>
                 <Input
                   id="revenue"
                   type="text"
-                  {...register('revenue', { valueAsNumber: true })}
+                  {...registerWithMask('revenue', 'brl-currency', {
+                    valueAsNumber: true,
+                  })}
                 />
                 <ShowError name="revenue" errors={form.formState.errors} />
               </div>
 
               <div className="flex flex-col gap-2">
-                <Label htmlFor="profit">Lucro ($)</Label>
+                <Label htmlFor="profit">Lucro (R$)</Label>
                 <Input
                   id="profit"
                   type="text"
-                  {...register('profit', { valueAsNumber: true })}
+                  {...registerWithMask('profit', 'brl-currency', {
+                    valueAsNumber: true,
+                  })}
                 />
                 <ShowError name="profit" errors={form.formState.errors} />
               </div>
@@ -102,21 +109,41 @@ export function MovieRegister() {
 
             <div className="flex gap-2">
               <div className="flex flex-col gap-2">
-                <Label htmlFor="popularity">Nota do público</Label>
+                <Label
+                  htmlFor="popularity"
+                  className="flex items-baseline gap-[2px]"
+                >
+                  Nota público <span className="text-[10px]">(1-10)</span>
+                </Label>
                 <Input
                   id="popularity"
                   type="text"
-                  {...register('popularity', { valueAsNumber: true })}
+                  {...registerWithMask('popularity', 'decimal', {
+                    valueAsNumber: true,
+                    max: 10,
+                    min: 1,
+                    allowMinus: false,
+                  })}
                 />
                 <ShowError name="popularity" errors={form.formState.errors} />
               </div>
 
               <div className="flex flex-col gap-2">
-                <Label htmlFor="vote_average">Nota média</Label>
+                <Label
+                  htmlFor="vote_average"
+                  className="flex items-baseline gap-1"
+                >
+                  Nota média <span className="text-[10px]">(1-10)</span>
+                </Label>
                 <Input
                   id="vote_average"
                   type="text"
-                  {...register('voteAverage', { valueAsNumber: true })}
+                  {...registerWithMask('voteAverage', 'decimal', {
+                    valueAsNumber: true,
+                    max: 10,
+                    min: 1,
+                    allowMinus: false,
+                  })}
                 />
                 <ShowError name="voteAverage" errors={form.formState.errors} />
               </div>
@@ -126,19 +153,30 @@ export function MovieRegister() {
                 <Input
                   id="vote_count"
                   type="text"
-                  {...register('voteCount', { valueAsNumber: true })}
+                  {...registerWithMask('voteCount', 'decimal', {
+                    valueAsNumber: true,
+                    allowMinus: false,
+                    min: 1,
+                  })}
                 />
                 <ShowError name="voteCount" errors={form.formState.errors} />
               </div>
             </div>
 
             <div className="flex gap-2">
-              <div className="flex flex-col gap-2 w-full">
+              <div
+                className="flex flex-col gap-2 w-full"
+                title="Duração em minutos"
+              >
                 <Label htmlFor="duration">Duração (min)</Label>
                 <Input
                   id="duration"
                   type="text"
-                  {...register('duration', { valueAsNumber: true })}
+                  {...registerWithMask('duration', 'decimal', {
+                    valueAsNumber: true,
+                    allowMinus: false,
+                    min: 1,
+                  })}
                 />
                 <ShowError name="duration" errors={form.formState.errors} />
               </div>
@@ -156,7 +194,6 @@ export function MovieRegister() {
                   control={form.control}
                   render={({ field }) => (
                     <DatePicker
-                      disabled={(date) => date < new Date()}
                       className="w-full"
                       value={field.value}
                       onChange={(value) => field.onChange(value)}
@@ -167,62 +204,44 @@ export function MovieRegister() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="poster_url">Poster</Label>
-              <Input
-                id="poster_url"
-                accept="image/*"
-                placeholder="Selecione uma imagem"
-                type="file"
-                className="p-0 pe-3 file:me-3 file:border-0 file:border-border file:border-e"
-                onChange={async (e) => {
-                  const file = e.target.files?.[0]
-                  console.log(file)
-                  if (!file) return
+            <div className="flex gap-2 justify-between">
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="cover_url">Poster</Label>
+                <Controller
+                  name="posterUrl"
+                  control={form.control}
+                  render={({ field }) => (
+                    <InputFile
+                      accept="image/jpeg, image/png, image/jpg, image/webp"
+                      buttonLabel="Upload de poster"
+                      onChange={async (file) => {
+                        const { url } = await handlers.handleUploadFile(file)
+                        field.onChange(url)
+                      }}
+                    />
+                  )}
+                />
+                <ShowError name="posterUrl" errors={form.formState.errors} />
+              </div>
 
-                  // faz upload
-                  // const url = await handlers.uploadPoster(file)
-
-                  // atualiza o campo que realmente será enviado ao backend
-                  form.setValue(
-                    'posterUrl',
-                    'https://via.placeholder.com/150',
-                    { shouldValidate: true },
-                  )
-
-                  // opcional: guarda o File localmente caso queira
-                  // form.setValue('posterFile', file)
-                }}
-              />
-              <ShowError name="posterUrl" errors={form.formState.errors} />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="cover_url">Cover</Label>
-              <Input
-                id="cover_url"
-                accept="image/*"
-                placeholder="Selecione uma imagem"
-                type="file"
-                className="p-0 pe-3 file:me-3 file:border-0 file:border-border file:border-e"
-                onChange={async (e) => {
-                  const file = e.target.files?.[0]
-                  console.log(file)
-                  if (!file) return
-
-                  // faz upload
-                  // const url = await handlers.uploadPoster(file)
-
-                  // atualiza o campo que realmente será enviado ao backend
-                  form.setValue('coverUrl', 'https://via.placeholder.com/150', {
-                    shouldValidate: true,
-                  })
-
-                  // opcional: guarda o File localmente caso queira
-                  // form.setValue('posterFile', file)
-                }}
-              />
-              <ShowError name="coverUrl" errors={form.formState.errors} />
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="cover_url">Cover</Label>
+                <Controller
+                  name="coverUrl"
+                  control={form.control}
+                  render={({ field }) => (
+                    <InputFile
+                      accept="image/jpeg, image/png, image/jpg, image/webp"
+                      buttonLabel="Upload de cover"
+                      onChange={async (file) => {
+                        const { url } = await handlers.handleUploadFile(file)
+                        field.onChange(url)
+                      }}
+                    />
+                  )}
+                />
+                <ShowError name="coverUrl" errors={form.formState.errors} />
+              </div>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -242,7 +261,9 @@ export function MovieRegister() {
             <Button type="button" variant="secondary">
               Cancelar
             </Button>
-            <Button type="submit">Adicionar Filme</Button>
+            <Button type="submit" loading={data.isUploadingFile}>
+              Adicionar Filme
+            </Button>
           </div>
         </form>
       </SheetContent>
