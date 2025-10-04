@@ -75,8 +75,8 @@ Use esta checklist para organizar o trabalho e acompanhar o progresso. Marque ca
 #### 7) Backend — API de Filmes
 
 - [ ] Endpoints:
-  - [ ] POST /auth/signup
-  - [ ] POST /auth/login
+  - [x] POST /auth/signup
+  - [x] POST /auth/login
   - [ ] GET /movies (lista com paginação, busca, filtros)
   - [ ] POST /movies (criar — autenticado)
   - [ ] GET /movies/:id (detalhe — restrito ao dono)
