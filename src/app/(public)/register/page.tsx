@@ -14,6 +14,7 @@ import {
   registerFormSchema,
   RegisterFormType,
 } from '@/features/register/types/register-schema'
+import Link from 'next/link'
 
 export default function RegisterPage() {
   const {
@@ -127,7 +128,13 @@ export default function RegisterPage() {
           <ShowError errors={errors} name="confirmPassword" />
         </div>
 
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-between">
+          <Link
+            href="/login"
+            className="text-sm text-muted-foreground underline"
+          >
+            Já tenho cadastro
+          </Link>
           <Button type="submit">Cadastrar</Button>
         </div>
       </form>

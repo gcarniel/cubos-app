@@ -3,52 +3,52 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import {
-  signInFormSchema,
-  SignInFormType,
-} from '@/features/login/types/sign-in-schema'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { routesMap } from '@/routes'
 import { toast } from 'sonner'
-import { signIn } from 'next-auth/react'
 import { ShowError } from '@/components/show-error'
+import {
+  forgotPasswordSchema,
+  ForgotPasswordType,
+} from '@/features/forgot/types/forgot-schema'
 
-export default function LoginPage() {
+export default function ForgotPasswordPage() {
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<SignInFormType>({
-    resolver: zodResolver(signInFormSchema),
+  } = useForm<ForgotPasswordType>({
+    resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
       email: '',
-      password: '',
     },
   })
 
   const router = useRouter()
 
-  const onSubmit = async (data: SignInFormType) => {
-    const registerData = {
-      email: data.email,
-      password: data.password,
-    }
-
+  const onSubmit = async (data: ForgotPasswordType) => {
     try {
-      const res = await signIn('credentials', {
-        ...registerData,
-        redirect: false,
-      })
+      const registerRes = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/forgot-password`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        },
+      )
 
-      if (res.error === 'CredentialsSignin') {
-        toast.error('Email ou senha incorretos!')
+      if (!registerRes.ok) {
+        toast.error('Erro ao enviar e-mail. Tente novamente.')
         return
       }
 
-      router.push(routesMap.root)
+      toast.success(
+        'Caso exista uma conta com o e-mail informado, enviaremos um link para redefinir a senha!',
+      )
+      router.push(routesMap.login)
     } catch (err) {
       console.error(err)
       toast.error('Ops, algo deu errado aqui, tente novamente mais tarde.')
@@ -62,43 +62,25 @@ export default function LoginPage() {
         className="bg-card w-full max-w-[400px] p-6 flex flex-col gap-4 rounded-sm "
       >
         <div className="flex flex-col gap-2">
-          <Label htmlFor="email">Nome/E-mail</Label>
+          <Label htmlFor="email">E-mail</Label>
           <Input
             type="email"
             id="email"
             className="w-full"
-            placeholder="Digite seu nome/e-mail"
+            placeholder="Digite seu e-mail"
             {...register('email')}
           />
           <ShowError errors={errors} name="email" />
         </div>
 
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="password">Senha</Label>
-          <Input
-            type="password"
-            id="password"
-            className="md:w-full"
-            placeholder="Digite sua senha"
-            {...register('password')}
-          />
-          <ShowError errors={errors} name="password" />
-        </div>
-
         <div className="flex items-center justify-between">
           <Link
-            href="/register"
+            href="/login"
             className="text-sm text-muted-foreground underline"
           >
-            Não tenho cadastro
+            Voltar para Login
           </Link>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <Link href="/forgot" className="text-sm text-primary underline">
-            Esqueci minha senha
-          </Link>
-          <Button type="submit">Entrar</Button>
+          <Button type="submit">Recuperar Senha</Button>
         </div>
       </form>
     </main>

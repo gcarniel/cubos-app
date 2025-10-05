@@ -11,6 +11,14 @@ const publicRoutes = [
     path: routesMap.register,
     whenAuthenticated: 'redirect',
   },
+  {
+    path: routesMap.forgot,
+    whenAuthenticated: 'redirect',
+  },
+  {
+    path: routesMap.recoverPassword,
+    whenAuthenticated: 'redirect',
+  },
 ] as const
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = routesMap.login
