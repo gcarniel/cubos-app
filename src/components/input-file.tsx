@@ -10,20 +10,24 @@ interface InputFileProps {
   accept?: string
   buttonLabel?: string
   onChange?: (file: File) => void
+  value?: string | null
+  onRemoveFileUrl?: () => void
 }
 
 export default function InputFile({
   accept,
   buttonLabel,
   onChange,
+  value,
+  onRemoveFileUrl,
 }: InputFileProps) {
   const [{ files }, { removeFile, openFileDialog, getInputProps }] =
     useFileUpload({
       accept,
     })
 
-  const previewUrl = files[0]?.preview || null
-  const fileName = files[0]?.file.name || null
+  const previewUrl = files[0]?.preview || value || null
+  const fileName = files[0]?.file.name || value ? buttonLabel : null
 
   useEffect(() => {
     if (files && files.length > 0 && files[0]?.file && onChange) {
@@ -76,7 +80,11 @@ export default function InputFile({
             {fileName}
           </p>{' '}
           <button
-            onClick={() => removeFile(files[0]?.id)}
+            type="button"
+            onClick={() => {
+              removeFile(files[0]?.id)
+              onRemoveFileUrl?.()
+            }}
             className="text-destructive font-medium hover:underline"
             aria-label={`Remove ${fileName}`}
           >
