@@ -52,7 +52,6 @@ Use esta checklist para organizar o trabalho e acompanhar o progresso. Marque ca
   - [x] Genre/Tag + tabela relacional
 - [x] Criar migrações iniciais
 - [x] Seeds opcionais (usuário teste + filmes)
-- [ ] Script de reset/refresh do banco para dev
 
 #### 5) Upload/Armazenamento de Imagens
 
@@ -64,46 +63,44 @@ Use esta checklist para organizar o trabalho e acompanhar o progresso. Marque ca
 
 #### 6) E-mail de Lembrete (Lançamento Futuro)
 
-- [ ] Escolher serviço (Resend)
-- [ ] Estratégia de agendamento:
-  - [ ] Job por filme (BullMQ/Agenda)
-  - [ ] ou Cron diário para checar lançamentos do dia
-- [ ] Template do e-mail (assunto e corpo)
-- [ ] Logs de envio e tratamento de erros
-- [ ] Ambiente dev: visualizar e-mails (MailHog/Ethereal)
+- [x] Escolher serviço (Resend)
+- [x] Estratégia de agendamento:
+  - [x] Cron diário para checar lançamentos do dia
+- [x] Template do e-mail (assunto e corpo)
+- [x] Logs de envio e tratamento de erros
 
 #### 7) Backend — API de Filmes
 
 - [ ] Endpoints:
   - [x] POST /auth/signup
   - [x] POST /auth/login
-  - [ ] GET /movies (lista com paginação, busca, filtros)
+  - [x] GET /movies (lista com paginação, busca, filtros)
   - [x] POST /movies (criar — autenticado)
-  - [ ] GET /movies/:id (detalhe — restrito ao dono)
-  - [ ] PATCH /movies/:id (editar — dono)
-  - [ ] DELETE /movies/:id (excluir — dono)
-- [ ] Paginação (10 por página — page/limit ou offset/limit)
-- [ ] Busca por texto (título/descrição)
-- [ ] Filtros:
-  - [ ] Duração (min/max)
-  - [ ] Data de lançamento (início e fim)
-  - [ ] +1 filtro adicional (ex.: orçamento min/max, gênero)
+  - [x] GET /movies/:id (detalhe — restrito ao dono)
+  - [x] PUT /movies/:id (editar — dono)
+  - [x] DELETE /movies/:id (excluir — dono)
+- [x] Paginação (10 por página — page/limit ou offset/limit)
+- [x] Busca por texto (título/descrição)
+- [x] Filtros:
+  - [x] Duração (min/max)
+  - [x] Data de lançamento (início e fim)
+  - [x] +1 filtro adicional (ex.: orçamento min/max, gênero)
 - [x] Validação (DTOs/schemas) e mensagens de erro padronizadas
 - [x] Serialização e exclusão de campos sensíveis
 
 #### 8) Permissões (Propriedade do Recurso)
 
-- [ ] Restringir visualizar/editar/excluir ao usuário criador
+- [x] Restringir visualizar/editar/excluir ao usuário criador
 - [x] Middleware que verifica createdByUserId
-- [ ] Documentar no README: lista mostra todos os filmes, mas detalhes/edição/exclusão só do dono
+- [x] Documentar no README: lista mostra todos os filmes, mas detalhes/edição/exclusão só do dono
 
 #### 9) Frontend — Infraestrutura
 
 - [x] Setup Next.js
 - [ ] Router (react-router-dom)
-- [ ] State/data fetching (React Query/Zustand/Context)
+- [x] State/data fetching (React Query/Zustand/Context)
 - [x] Design system básico (tokens + Button/Input/Modal/Card)
-- [ ] Utilitários de data e moeda (date-fns/dayjs; Intl.NumberFormat)
+- [x] Utilitários de data e moeda (date-fns/dayjs; Intl.NumberFormat)
 - [x] Feedbacks: toasts, loaders, estados vazios e erros
 
 #### 10) Frontend — Páginas e Fluxos
@@ -112,43 +109,36 @@ Use esta checklist para organizar o trabalho e acompanhar o progresso. Marque ca
   - [x] E-mail e senha (validação e mensagens de erro)
   - [x] Redireciona para lista ao logar
   - [x] Se autenticado, redireciona para lista
-- [ ] Cadastro
-  - [ ] Nome, E-mail, Senha, Confirmação (validação forte)
-  - [ ] Se autenticado, redireciona para lista
-- [ ] Listagem de Filmes
-  - [ ] Exibir todos os filmes cadastrados
-  - [ ] Campo de busca com filtragem dinâmica (debounce)
-  - [ ] Paginação (10 por página)
-  - [ ] Card clicável navega ao detalhe
-  - [ ] Botão “Filtro” abre modal
-- [ ] Modal de Filtros
-  - [ ] Duração (min/max)
-  - [ ] Data de lançamento (início e fim)
-  - [ ] +1 filtro adicional (ex.: orçamento min/max, gênero)
-  - [ ] Ações: Aplicar / Limpar / Cancelar
-- [ ] Adição/Edição de Filme
-  - [ ] Título, título original, data, duração, descrição, orçamento, imagem
-  - [ ] Ao salvar com data futura, acionar agendamento de e-mail no backend
-- [ ] Detalhes do Filme
-  - [ ] Exibir título, título original, data, descrição, orçamento, imagem
-  - [ ] Ações Editar/Excluir visíveis somente ao dono
-- [ ] Proteção de rotas
-  - [ ] Bloquear páginas restritas a usuários não logados
+- [x] Cadastro
+  - [x] Nome, E-mail, Senha, Confirmação (validação forte)
+  - [x] Se autenticado, redireciona para lista
+- [x] Listagem de Filmes
+  - [x] Exibir todos os filmes cadastrados
+  - [x] Campo de busca com filtragem dinâmica (debounce)
+  - [x] Paginação (10 por página)
+  - [x] Card clicável navega ao detalhe
+  - [x] Botão “Filtro” abre modal
+- [x] Modal de Filtros
+  - [x] Duração (min/max)
+  - [x] Data de lançamento (início e fim)
+  - [x] +1 filtro adicional (ex.: orçamento min/max, gênero)
+  - [x] Ações: Aplicar / Limpar / Cancelar
+- [x] Adição/Edição de Filme
+  - [x] Título, título original, data, duração, descrição, orçamento, imagem
+  - [x] Ao salvar com data futura, acionar agendamento de e-mail no backend
+- [x] Detalhes do Filme
+  - [x] Exibir título, título original, data, descrição, orçamento, imagem
+  - [x] Ações Editar/Excluir permitidas somente ao dono
+- [x] Proteção de rotas
+  - [x] Bloquear páginas restritas a usuários não logados
 
 #### 11) Qualidade de Código e UX
 
-- [ ] Componentes reutilizáveis e bem tipados (TS estrito)
-- [ ] Acessibilidade: labels, aria-attrs, navegação por teclado
-- [ ] Skeletons, estados vazios e loading coerentes
-- [ ] Tratamento de erros de rede (mensagens amigáveis)
-- [ ] Microinterações (focus/hover/active)
-
-#### 12) Observabilidade e Logs
-
-- [ ] Logger no backend (níveis info/warn/error)
-- [ ] Tratamento global de erros (middleware)
-- [ ] Logs de auditoria (criar/editar/excluir)
-- [ ] Métricas básicas no frontend (opcional)
+- [x] Componentes reutilizáveis e bem tipados (TS estrito)
+- [x] Acessibilidade: labels, aria-attrs, navegação por teclado
+- [x] Skeletons, estados vazios e loading coerentes
+- [x] Tratamento de erros de rede (mensagens amigáveis)
+- [x] Microinterações (focus/hover/active)
 
 #### 13) Documentação (README.md)
 
@@ -165,15 +155,6 @@ Use esta checklist para organizar o trabalho e acompanhar o progresso. Marque ca
 - [ ] Endpoints da API (rota, método, body, response)
 - [ ] Limitações e próximos passos
 
-#### 14) Deploy (Opcional, recomendado)
-
-- [ ] Backend em serviço gerenciado (Railway/Render/Fly/EC2)
-- [ ] PostgreSQL gerenciado
-- [ ] Frontend em Vercel/Netlify
-- [ ] Variáveis de ambiente configuradas no ambiente
-- [ ] Domínios e HTTPS
-- [ ] README com URLs de produção
-
 #### 15) Verificação Final
 
 - [ ] Testar lembrete de e-mail (usar data próxima ou mock)
@@ -182,12 +163,3 @@ Use esta checklist para organizar o trabalho e acompanhar o progresso. Marque ca
 - [ ] Rodar linters e testes
 - [ ] Revisão final do README
 - [ ] Criar release/tag no repositório
-
-#### 16) Extras (Bônus)
-
-- [ ] Filtro por múltiplos gêneros/tags
-- [ ] Upload com recorte/otimização
-- [ ] Infinite scroll alternativo à paginação
-- [ ] i18n (pt/en)
-- [ ] Dark mode automático via prefers-color-scheme
-- [ ] Docker Compose para FE/BE/DB/MailHog em um comando
