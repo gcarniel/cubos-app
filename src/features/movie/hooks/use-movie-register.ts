@@ -79,7 +79,7 @@ export function useMovieRegister() {
   const handleSubmit = async (data: MovieRegister) => {
     if (data.id) {
       if (!movie?.id) return
-      if (session?.user?.id !== movie.userId) {
+      if (session?.user?.id !== movie.user.id) {
         toast.warning('Acesso negado', {
           description:
             'Você não tem permissão para editar filme cadastrado por outro usuário',

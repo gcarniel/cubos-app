@@ -20,6 +20,7 @@ export function MovieDetails({ id }: { id: string }) {
     isLoading,
     isFetching,
   } = useMovieDetail(id)
+
   const { setMovie } = useMovieStore()
 
   if (isLoading || isFetching) {
@@ -164,6 +165,9 @@ export function MovieDetails({ id }: { id: string }) {
             </section>
           </div>
         </section>
+        <p className="text-sm text-muted">
+          Criado por <span className="font-bold">{movie?.user.name}</span>
+        </p>
       </section>
 
       {/* secao trailer */}

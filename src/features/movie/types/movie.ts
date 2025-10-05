@@ -25,7 +25,10 @@ export interface Movie {
   posterUrl: string
   coverUrl?: string
   trailerUrl: string
-  userId: string
+  user: {
+    id: string
+    name: string
+  }
 }
 
 export interface Genre {
