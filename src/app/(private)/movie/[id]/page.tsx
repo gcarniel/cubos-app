@@ -1,4 +1,4 @@
-import { MovieDetails } from '@/features/movie/components/movie-details'
+import { MovieDetailsWrapper } from '@/features/movie/components/movie-details-wrapper'
 
 export default async function MoviePage({
   params,
@@ -7,5 +7,5 @@ export default async function MoviePage({
 }) {
   const { id } = await params
 
-  return <MovieDetails id={id} />
+  return <MovieDetailsWrapper id={id} />
 }
