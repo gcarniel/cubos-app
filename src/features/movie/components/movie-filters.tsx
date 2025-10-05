@@ -22,18 +22,18 @@ export function MovieFilters() {
 
   return (
     <Dialog open={openFiltersModal} onOpenChange={setOpenFiltersModal}>
-      <DialogContent className="md:w-[570px] p-4">
-        <DialogHeader>
+      <DialogContent className="w-full sm:w-[570px] p-4 flex flex-col gap-4">
+        <DialogHeader className="flex items-start">
           <DialogTitle>Filtros</DialogTitle>
         </DialogHeader>
         <form
-          className="flex flex-col gap-4 p-4 h-full"
+          className="flex flex-col gap-4 p-4 h-full w-full"
           onSubmit={form.handleSubmit(handlers.handleSubmit)}
         >
           <section className="flex flex-col gap-4 w-full">
             <div className="flex gap-2 justify-between">
               <div className="flex flex-col gap-2 w-full">
-                <Label htmlFor="minDuration">Duração mínima (min)</Label>
+                <Label htmlFor="minDuration">Duração mínima</Label>
                 <Input
                   id="minDuration"
                   type="text"
@@ -46,7 +46,7 @@ export function MovieFilters() {
               </div>
 
               <div className="flex flex-col gap-2 w-full">
-                <Label htmlFor="maxDuration">Duração máxima (min)</Label>
+                <Label htmlFor="maxDuration">Duração máxima</Label>
                 <Input
                   id="maxDuration"
                   type="text"
@@ -71,6 +71,7 @@ export function MovieFilters() {
                   control={form.control}
                   render={({ field }) => (
                     <DatePicker
+                      placeholder="Data mínima"
                       className="w-full"
                       value={field.value ? new Date(field.value) : undefined}
                       onChange={(value) => field.onChange(value.toISOString())}
@@ -93,6 +94,7 @@ export function MovieFilters() {
                   render={({ field }) => (
                     <DatePicker
                       className="w-full"
+                      placeholder="Data máxima"
                       value={field.value ? new Date(field.value) : undefined}
                       onChange={(value) => field.onChange(value.toISOString())}
                     />
@@ -110,7 +112,7 @@ export function MovieFilters() {
             <div className="flex gap-2 justify-between">
               <div className="flex flex-col gap-2 w-full">
                 <Label htmlFor="minVoteAverage">
-                  Nota média mínima
+                  Nota mínima
                   <span className="text-xs text-muted-foreground">(1-100)</span>
                 </Label>
                 <Input
@@ -130,7 +132,7 @@ export function MovieFilters() {
 
               <div className="flex flex-col gap-2 w-full">
                 <Label htmlFor="maxVoteAverage">
-                  Nota média máxima
+                  Nota máxima
                   <span className="text-xs text-muted-foreground">(1-100)</span>
                 </Label>
                 <Input
@@ -152,7 +154,7 @@ export function MovieFilters() {
 
           <ShowError name="custom" errors={form.formState.errors} />
 
-          <div className="flex justify-end gap-2">
+          <div className="flex flex-col sm:flex-row justify-end gap-2">
             <Button
               onClick={handleClearFilters}
               type="button"

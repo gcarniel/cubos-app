@@ -17,6 +17,7 @@ interface DatePickerProps {
   value?: Date
   onChange?: (value: Date) => void
   disabled?: (date: Date) => boolean
+  placeholder?: string
 }
 
 export function DatePicker({
@@ -24,6 +25,7 @@ export function DatePicker({
   value,
   onChange,
   disabled,
+  placeholder,
 }: DatePickerProps) {
   const [open, setOpen] = React.useState(false)
   const [date, setDate] = React.useState<Date | undefined>(value)
@@ -36,7 +38,9 @@ export function DatePicker({
           id="date"
           className={cn('w-48 justify-between font-normal', className)}
         >
-          {date ? date.toLocaleDateString('pt-BR') : 'Selecione uma data'}
+          {date
+            ? date.toLocaleDateString('pt-BR')
+            : (placeholder ?? 'Selecione uma data')}
           <ChevronDownIcon />
         </Button>
       </PopoverTrigger>
