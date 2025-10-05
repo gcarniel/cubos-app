@@ -37,24 +37,24 @@
 
 :root {
   --radius: 0.5rem;
-  --background: #FDFCFD;
+  --background: #F2EFF3;
   --foreground: #121113;
-  --card: #EEEEF0;
+  --card: #F2EFF3;
   --card-foreground: #232225;
 
-  --primary: #8E4EC6;
-  --primary-hover: #9A5CD0;
-  --primary-foreground: #FFFFFF;
-  --primary-disabled: #6F6D78;
+  --primary: #8347B9;
+  --primary-hover: #8E4EC6;
+  --primary-foreground: #F7EDFE;
+  --primary-disabled: #78786d;
   --primary-disabled-foreground: #ECE9FD7D;
 
-  --secondary: #B744F714;
-  --secondary-hover: #C150FF2E;
-  --secondary-foreground: #F1DDFFFA;
-  --secondary-disabled: #B744F714;
-  --secondary-disabled-foreground: #F1DDFFFA;
+  --secondary: #BE93E4;
+  --secondary-hover: #D1AFEC;
+  --secondary-foreground: #FBF7FE;
+  --secondary-disabled: #B5B2BC;
+  --secondary-disabled-foreground: #FBF7FE;
 
-  --muted: #6F6D78;
+  --muted: #74786d;
   --muted-foreground: #ECE9FD7D;
   --border: #3C393F;
   --input: #1A191B;
@@ -63,8 +63,8 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --popover: #EEEEF0;
+  --ring: #8347B9;
+  --popover: #F2EFF3;
   --popover-foreground: #232225;
   --font-montserrat: var(--font-montserrat);
   --font-roboto: var(--font-roboto)
@@ -96,7 +96,7 @@
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --ring: oklch(0.556 0 0);
+  --ring: #8E4EC6;
   --popover: #232225;
   --popover-foreground: #EEEEF0;
   --font-montserrat: var(--font-montserrat);
@@ -111,4 +111,28 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+body {
+  main {
+    background-image: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0.8) 50%),
+      url("/background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    transition: background-image 0.4s ease, background-color 0.4s ease;
+  }
+}
+
+.dark body {
+  main {
+    background-image: linear-gradient(to bottom,
+        rgba(0, 0, 0, 0.5) 0%,
+        rgba(0, 0, 0, 1) 50%),
+      url("/background.png");
+  }
+
 }

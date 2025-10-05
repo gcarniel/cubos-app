@@ -12,6 +12,7 @@ import { useMovieStore } from '../store/movie-store'
 import { MovieRegister } from './movie-register'
 
 import cubosLogoMobile from '@/assets/cubos-logo-mobile.svg'
+import { useTheme } from 'next-themes'
 
 export function MovieDetails({ id }: { id: string }) {
   const {
@@ -20,6 +21,8 @@ export function MovieDetails({ id }: { id: string }) {
     isLoading,
     isFetching,
   } = useMovieDetail(id)
+
+  const { theme } = useTheme()
 
   const { setMovie } = useMovieStore()
 
@@ -54,7 +57,11 @@ export function MovieDetails({ id }: { id: string }) {
       <section
         className="p-8 flex flex-col gap-4"
         style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.85) 100%, rgba(0,0,0,.85) 100%),
+          backgroundImage:
+            theme === 'dark'
+              ? `linear-gradient(to bottom, rgba(0,0,0,0.85) 100%, rgba(0,0,0,.85) 100%),
+            url(${movie?.coverUrl || movie?.posterUrl})`
+              : `linear-gradient(to bottom, rgba(200,200,200,0.5) 0%, rgba(200,200,200,0.1) 100%),
             url(${movie?.coverUrl || movie?.posterUrl})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -90,7 +97,9 @@ export function MovieDetails({ id }: { id: string }) {
           </div>
           <div className="flex flex-col gap-4 w-full">
             <div className="flex flex-col lg:flex-row gap-2 font-montserrat">
-              <p className="flex-1 w-full">{movie?.originalTitle}</p>
+              <p className="flex-1 w-full text-card-foreground">
+                {movie?.originalTitle}
+              </p>
               <div className="flex items-center gap-2">
                 <MovieLabel
                   label="popularidade"
@@ -111,11 +120,11 @@ export function MovieDetails({ id }: { id: string }) {
 
             <section className="flex flex-col lg:flex-row gap-2 justify-between font-montserrat">
               <section className="flex-1 flex flex-col gap-2">
-                <div className="flex-1 flex flex-col gap-2 bg-[#232225BF] rounded-sm p-4">
+                <div className="flex-1 flex flex-col gap-2 bg-card text-card-foreground rounded-sm p-4">
                   <p>{movie?.sinopsis}</p>
                 </div>
 
-                <div className="flex flex-col gap-2 bg-[#232225BF] rounded-sm p-4 w-fit">
+                <div className="flex flex-col gap-2 bg-card text-card-foreground rounded-sm p-4 w-fit">
                   <div className="flex flex-col gap-1">
                     <p>Generos</p>
                     <div className="flex gap-2">
@@ -171,7 +180,7 @@ export function MovieDetails({ id }: { id: string }) {
       </section>
 
       {/* secao trailer */}
-      <section className="flex flex-col gap-2 h-full p-8 lg:min-h-[760px]">
+      <section className="flex flex-col gap-2 h-full p-8 lg:min-h-[760px] bg-gradient-to-b from-background to-background">
         <p className="font-montserrat text-2xl font-bold"> Trailer</p>
         <ReactPlayer
           src={movie?.trailerUrl}

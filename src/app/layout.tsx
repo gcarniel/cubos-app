@@ -51,16 +51,7 @@ export default function RootLayout({
         >
           <SessionProvider>
             <Header />
-            <main
-              className="max-w-[1366px] min-w-[314px] mx-auto w-full h-full overflow-y-auto"
-              style={{
-                backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,1) 50%), url(${Background.src})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                backgroundAttachment: 'fixed',
-              }}
-            >
+            <main className="max-w-[1366px] min-w-[314px] mx-auto w-full h-full overflow-y-auto">
               <QueryProvider>{children}</QueryProvider>
               <Toaster position="top-right" richColors closeButton />
             </main>
