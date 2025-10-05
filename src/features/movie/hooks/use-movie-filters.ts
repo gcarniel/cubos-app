@@ -7,10 +7,11 @@ import {
 import { useMovieFiltersStore } from '../store/movie-filters-store'
 import { useHookFormMask } from 'use-mask-input'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export function useMovieFilters() {
   const { setFilters, setOpenFiltersModal, filters } = useMovieFiltersStore()
+  const [searchValue, setSearchValue] = useState(filters.search || '')
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -44,6 +45,14 @@ export function useMovieFilters() {
     form.reset()
     setOpenFiltersModal(false)
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFilters({ ...filters, search: searchValue })
+    }, 500)
+
+    return () => clearTimeout(timer)
+  }, [searchValue])
 
   useEffect(() => {
     const params = new URLSearchParams()
@@ -104,6 +113,10 @@ export function useMovieFilters() {
       registerWithMask,
       handleSubmit,
       handleClearFilters,
+      setSearchValue,
+    },
+    state: {
+      searchValue,
     },
   }
 }
