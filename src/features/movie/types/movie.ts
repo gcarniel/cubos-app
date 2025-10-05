@@ -1,21 +1,46 @@
-export type Movie = {
+export interface MovieWithPagination {
+  movies: Movie[]
+  totalMovies: number
+  totalPages: number
+  currentPage: number
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+}
+
+export interface Movie {
   id: string
-  popularity: number
-  release_date: string
   title: string
-  original_title: string
-  vote_average: number
-  vote_count: number
+  originalTitle: string
   duration: number
-  situation: string
   budget: number
   revenue: number
   profit: number
   sinopsis: string
-  genre: string[]
-  poster_url: string
-  cover_url: string
+  genre: Genre[]
   language: string
-  trailer_url: string
-  status: 'released' | 'upcoming'
+  releaseDate: string
+  popularity: number
+  voteAverage: number
+  voteCount: number
+  posterUrl: string
+  coverUrl?: string
+  trailerUrl: string
+}
+
+export interface Genre {
+  id: string
+  name: string
+}
+
+export interface Filters {
+  search?: string
+  page?: number
+  take?: number
+  minRating?: number
+  maxRating?: number
+  minReleaseDate?: string
+  maxReleaseDate?: string
+  minDuration?: number
+  maxDuration?: number
+  sort?: string
 }
