@@ -17,7 +17,7 @@ export const movieRegisterSchema = z.object({
   popularity: z.number().min(1, 'Campo popularidade é obrigatório'),
   voteAverage: z.number().min(1, 'Campo média de votos é obrigatório'),
   voteCount: z.number().min(1, 'Campo contagem de votos é obrigatório'),
-  posterUrl: z.url(),
+  posterUrl: z.url({ message: 'Foto de capa é obrigatória' }),
   coverUrl: z.url().optional().nullable(),
   trailerUrl: z.url({ message: 'Campo link do trailer é obrigatório' }),
 })

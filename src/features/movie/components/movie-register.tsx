@@ -75,8 +75,9 @@ export function MovieRegister() {
                 <Input
                   id="budget"
                   type="text"
-                  {...registerWithMask('budget', 'brl-currency', {
+                  {...registerWithMask('budget', 'decimal', {
                     valueAsNumber: true,
+                    autoUnmask: true,
                   })}
                 />
                 <ShowError name="budget" errors={form.formState.errors} />
@@ -87,8 +88,9 @@ export function MovieRegister() {
                 <Input
                   id="revenue"
                   type="text"
-                  {...registerWithMask('revenue', 'brl-currency', {
+                  {...registerWithMask('revenue', 'decimal', {
                     valueAsNumber: true,
+                    autoUnmask: true,
                   })}
                 />
                 <ShowError name="revenue" errors={form.formState.errors} />
@@ -101,8 +103,9 @@ export function MovieRegister() {
                 <Input
                   id="profit"
                   type="text"
-                  {...registerWithMask('profit', 'brl-currency', {
+                  {...registerWithMask('profit', 'decimal', {
                     valueAsNumber: true,
+                    autoUnmask: true,
                   })}
                 />
                 <ShowError name="profit" errors={form.formState.errors} />

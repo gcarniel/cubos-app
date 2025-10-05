@@ -44,6 +44,9 @@ export function useMovieRegister() {
       toast.success('Filme adicionado com sucesso')
       form.reset()
       setOpenRegisterModal(false)
+      queryClient.invalidateQueries({
+        queryKey: ['movies'],
+      })
     },
   })
 
