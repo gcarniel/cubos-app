@@ -30,7 +30,6 @@ export function useMovieFilters() {
   const registerWithMask = useHookFormMask(form.register)
 
   const handleSubmit = (data: MovieFilters) => {
-    console.log(data)
     setFilters({
       ...data,
       minDuration: Number(data.minDuration),

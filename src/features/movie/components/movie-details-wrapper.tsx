@@ -8,7 +8,6 @@ export function MovieDetailsWrapper({ id }: { id: string }) {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    console.log(window.innerWidth)
     const handleResize = () => {
       const isClient = typeof window !== 'undefined'
       if (!isClient) return

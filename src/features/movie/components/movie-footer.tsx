@@ -7,8 +7,6 @@ export function MovieFooter() {
   const { pagination } = useMovieFiltersStore()
   const { setPagination } = useMovieFiltersStore()
 
-  console.log({ pagination })
-
   const handleSetPage = (page: number) => {
     setPagination({ ...pagination, currentPage: page })
   }
