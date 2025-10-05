@@ -10,16 +10,19 @@ import ReactPlayer from 'react-player'
 import { useMovieDetail } from '../hooks/use-movies-detail'
 
 export function MovieDetails({ id }: { id: string }) {
-  const { data: movie } = useMovieDetail(id)
+  const { data: movie, handleDeleteMovie } = useMovieDetail(id)
 
   if (!movie) {
-    return <div>Movie not found</div>
+    return (
+      <div className="flex items-center justify-center h-full">
+        <h1 className="text-2xl font-bold">Filme não encontrado</h1>
+      </div>
+    )
   }
 
   const isReleased =
     new Date(movie?.releaseDate) > new Date() ? 'Em breve' : 'Lançado'
 
-  console.log(movie)
   return (
     <main className="flex flex-col gap-4 w-full h-full p-8 font-montserrat">
       {/* secao de detalhes */}
@@ -40,7 +43,12 @@ export function MovieDetails({ id }: { id: string }) {
             <p className="text-base">{movie?.originalTitle}</p>
           </div>
           <div className="flex gap-2">
-            <Button variant="secondary">Deletar</Button>
+            <Button
+              onClick={() => handleDeleteMovie(movie)}
+              variant="secondary"
+            >
+              Deletar
+            </Button>
             <Button>Editar</Button>
           </div>
         </section>
