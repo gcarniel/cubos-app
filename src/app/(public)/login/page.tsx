@@ -86,6 +86,15 @@ export default function LoginPage() {
         </div>
 
         <div className="flex items-center justify-between">
+          <Link
+            href="/register"
+            className="text-sm text-muted-foreground underline"
+          >
+            Não tenho cadastro
+          </Link>
+        </div>
+
+        <div className="flex items-center justify-between">
           <Link href="/register" className="text-sm text-primary underline">
             Esqueci minha senha
           </Link>

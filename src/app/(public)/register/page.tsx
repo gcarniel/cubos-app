@@ -38,15 +38,33 @@ export default function RegisterPage() {
       email: data.email,
       password: data.password,
       name: data.name,
+      confirmPassword: data.confirmPassword,
     }
 
     try {
-      // chamando a funcao abaixo apenas pra simular o registro
+      const registerRes = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(registerData),
+        },
+      )
+
+      if (!registerRes.ok) {
+        toast.error('Erro ao criar conta. Tente novamente.')
+        return
+      }
+
       const res = await signIn('credentials', {
         ...registerData,
         redirect: false,
       })
-      // TODO: implementar registro
+
+      if (!res?.ok) {
+        toast.error('Ops, algo deu errado aqui, tente novamente mais tarde.')
+        return
+      }
 
       router.push(routesMap.root)
     } catch (err) {
