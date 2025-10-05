@@ -111,7 +111,7 @@ export function MovieFilters() {
               <div className="flex flex-col gap-2 w-full">
                 <Label htmlFor="minVoteAverage">
                   Nota média mínima
-                  <span className="text-xs text-muted-foreground">(1-10)</span>
+                  <span className="text-xs text-muted-foreground">(1-100)</span>
                 </Label>
                 <Input
                   id="minVoteAverage"
@@ -119,7 +119,7 @@ export function MovieFilters() {
                   {...registerWithMask('minVoteAverage', 'decimal', {
                     allowMinus: false,
                     min: 1,
-                    max: 10,
+                    max: 100,
                   })}
                 />
                 <ShowError
@@ -131,7 +131,7 @@ export function MovieFilters() {
               <div className="flex flex-col gap-2 w-full">
                 <Label htmlFor="maxVoteAverage">
                   Nota média máxima
-                  <span className="text-xs text-muted-foreground">(1-10)</span>
+                  <span className="text-xs text-muted-foreground">(1-100)</span>
                 </Label>
                 <Input
                   id="maxVoteAverage"
@@ -139,7 +139,7 @@ export function MovieFilters() {
                   {...registerWithMask('maxVoteAverage', 'decimal', {
                     allowMinus: false,
                     min: 1,
-                    max: 10,
+                    max: 100,
                   })}
                 />
                 <ShowError

@@ -113,14 +113,14 @@ export function MovieRegister() {
                   htmlFor="popularity"
                   className="flex items-baseline gap-[2px]"
                 >
-                  Nota público <span className="text-[10px]">(1-10)</span>
+                  Nota público <span className="text-[10px]">(1-100)</span>
                 </Label>
                 <Input
                   id="popularity"
                   type="text"
                   {...registerWithMask('popularity', 'decimal', {
                     valueAsNumber: true,
-                    max: 10,
+                    max: 100,
                     min: 1,
                     allowMinus: false,
                   })}
@@ -133,14 +133,14 @@ export function MovieRegister() {
                   htmlFor="vote_average"
                   className="flex items-baseline gap-1"
                 >
-                  Nota média <span className="text-[10px]">(1-10)</span>
+                  Nota média <span className="text-[10px]">(1-100)</span>
                 </Label>
                 <Input
                   id="vote_average"
                   type="text"
                   {...registerWithMask('voteAverage', 'decimal', {
                     valueAsNumber: true,
-                    max: 10,
+                    max: 100,
                     min: 1,
                     allowMinus: false,
                   })}
