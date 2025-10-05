@@ -2,7 +2,6 @@
 
 import { Movie } from '@/features/movie/types/movie'
 
-import poster from '@/assets/poster.png'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -17,8 +16,8 @@ export function MovieItemCard({ movie }: MovieItemCardProps) {
         <div className="flex flex-col gap-2 opacity-90 hover:opacity-100 transition cursor-pointer">
           <div className="w-full flex-1 relative">
             <Image
-              src={movie.cover_url || poster}
-              alt=""
+              src={movie.posterUrl}
+              alt={movie.title}
               className="w-full h-full object-cover"
               width={183}
               height={281}

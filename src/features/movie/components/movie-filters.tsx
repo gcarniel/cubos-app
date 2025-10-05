@@ -5,20 +5,23 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 import { useMovieFilters } from '@/features/movie/hooks/use-movie-filters'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ShowError } from '@/components/show-error'
 import { Button } from '@/components/ui/button'
+import { useMovieFiltersStore } from '@/features/movie/store/movie-filters-store'
+import { DatePicker } from '@/components/date-picker'
+import { Controller } from 'react-hook-form'
 
 export function MovieFilters() {
+  const { openFiltersModal, setOpenFiltersModal } = useMovieFiltersStore()
   const { form, handlers } = useMovieFilters()
-  const { register } = form
+  const { registerWithMask, handleClearFilters } = handlers
+
   return (
-    <Dialog>
-      <DialogTrigger>Filtros</DialogTrigger>
+    <Dialog open={openFiltersModal} onOpenChange={setOpenFiltersModal}>
       <DialogContent className="md:w-[570px] p-4">
         <DialogHeader>
           <DialogTitle>Filtros</DialogTitle>
@@ -34,7 +37,10 @@ export function MovieFilters() {
                 <Input
                   id="minDuration"
                   type="text"
-                  {...register('minDuration')}
+                  {...registerWithMask('minDuration', 'decimal', {
+                    allowMinus: false,
+                    min: 1,
+                  })}
                 />
                 <ShowError name="minDuration" errors={form.formState.errors} />
               </div>
@@ -44,7 +50,10 @@ export function MovieFilters() {
                 <Input
                   id="maxDuration"
                   type="text"
-                  {...register('maxDuration')}
+                  {...registerWithMask('maxDuration', 'decimal', {
+                    allowMinus: false,
+                    min: 1,
+                  })}
                 />
                 <ShowError name="maxDuration" errors={form.formState.errors} />
               </div>
@@ -57,10 +66,16 @@ export function MovieFilters() {
                 <Label htmlFor="minReleaseDate">
                   Data de lançamento mínima
                 </Label>
-                <Input
-                  id="minReleaseDate"
-                  type="date"
-                  {...register('minReleaseDate')}
+                <Controller
+                  name="minReleaseDate"
+                  control={form.control}
+                  render={({ field }) => (
+                    <DatePicker
+                      className="w-full"
+                      value={field.value ? new Date(field.value) : undefined}
+                      onChange={(value) => field.onChange(value.toISOString())}
+                    />
+                  )}
                 />
                 <ShowError
                   name="minReleaseDate"
@@ -72,10 +87,16 @@ export function MovieFilters() {
                 <Label htmlFor="maxReleaseDate">
                   Data de lançamento máxima
                 </Label>
-                <Input
-                  id="maxReleaseDate"
-                  type="date"
-                  {...register('maxReleaseDate')}
+                <Controller
+                  name="maxReleaseDate"
+                  control={form.control}
+                  render={({ field }) => (
+                    <DatePicker
+                      className="w-full"
+                      value={field.value ? new Date(field.value) : undefined}
+                      onChange={(value) => field.onChange(value.toISOString())}
+                    />
+                  )}
                 />
                 <ShowError
                   name="maxReleaseDate"
@@ -88,11 +109,18 @@ export function MovieFilters() {
           <section className="flex flex-col gap-4 w-full">
             <div className="flex gap-2 justify-between">
               <div className="flex flex-col gap-2 w-full">
-                <Label htmlFor="minVoteAverage">Nota média mínima</Label>
+                <Label htmlFor="minVoteAverage">
+                  Nota média mínima
+                  <span className="text-xs text-muted-foreground">(1-10)</span>
+                </Label>
                 <Input
                   id="minVoteAverage"
-                  type="number"
-                  {...register('minVoteAverage')}
+                  type="text"
+                  {...registerWithMask('minVoteAverage', 'decimal', {
+                    allowMinus: false,
+                    min: 1,
+                    max: 10,
+                  })}
                 />
                 <ShowError
                   name="minVoteAverage"
@@ -101,11 +129,18 @@ export function MovieFilters() {
               </div>
 
               <div className="flex flex-col gap-2 w-full">
-                <Label htmlFor="maxVoteAverage">Nota média máxima</Label>
+                <Label htmlFor="maxVoteAverage">
+                  Nota média máxima
+                  <span className="text-xs text-muted-foreground">(1-10)</span>
+                </Label>
                 <Input
                   id="maxVoteAverage"
-                  type="number"
-                  {...register('maxVoteAverage')}
+                  type="text"
+                  {...registerWithMask('maxVoteAverage', 'decimal', {
+                    allowMinus: false,
+                    min: 1,
+                    max: 10,
+                  })}
                 />
                 <ShowError
                   name="maxVoteAverage"
@@ -118,7 +153,18 @@ export function MovieFilters() {
           <ShowError name="custom" errors={form.formState.errors} />
 
           <div className="flex justify-end gap-2">
-            <Button type="button" variant="secondary">
+            <Button
+              onClick={handleClearFilters}
+              type="button"
+              variant="outline"
+            >
+              Limpar Filtros
+            </Button>
+            <Button
+              onClick={() => setOpenFiltersModal(false)}
+              type="button"
+              variant="secondary"
+            >
               Cancelar
             </Button>
             <Button type="submit">Aplicar Filtros</Button>

@@ -6,9 +6,11 @@ import { Button } from '@/components/ui/button'
 import { MovieRegister } from './movie-register'
 import { MovieFilters } from './movie-filters'
 import { useMovieStore } from '@/features/movie/store/movie-store'
+import { useMovieFiltersStore } from '@/features/movie/store/movie-filters-store'
 
 export function MoviesDashboard() {
   const { setOpenRegisterModal } = useMovieStore()
+  const { setOpenFiltersModal } = useMovieFiltersStore()
 
   return (
     <section className="flex flex-col sm:flex-row justify-end gap-2">
@@ -20,7 +22,11 @@ export function MoviesDashboard() {
       </div>
 
       <div className="flex gap-2">
-        <Button variant="secondary" className="flex-1">
+        <Button
+          variant="secondary"
+          className="flex-1"
+          onClick={() => setOpenFiltersModal(true)}
+        >
           Filtros
         </Button>
         <Button

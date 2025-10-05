@@ -35,31 +35,31 @@ Use esta checklist para organizar o trabalho e acompanhar o progresso. Marque ca
 #### 3) Autenticação e Autorização
 
 - [ ] Backend: rotas de auth (signup, login, refresh, logout)
-- [ ] Backend: hash de senha (bcrypt/argon2)
-- [ ] Backend: JWT (access + refresh) ou sessões (documentar decisão)
-- [ ] Middleware/Guards para rotas privadas
-- [ ] Frontend: formulários de Login e Cadastro (validação e erros)
-- [ ] Frontend: gestão de sessão (React Query/Context/Zustand)
-- [ ] Redirecionamentos:
-  - [ ] Se logado, bloquear Login/Cadastro (ir para lista)
-  - [ ] Se não logado, bloquear lista/detalhe/edição (ir para Login)
+- [x] Backend: hash de senha (bcrypt/argon2)
+- [x] Backend: JWT (access + refresh) ou sessões (documentar decisão)
+- [x] Middleware/Guards para rotas privadas
+- [x] Frontend: formulários de Login e Cadastro (validação e erros)
+- [x] Frontend: gestão de sessão (React Query/Context/Zustand)
+- [x] Redirecionamentos:
+  - [x] Se logado, bloquear Login/Cadastro (ir para lista)
+  - [x] Se não logado, bloquear lista/detalhe/edição (ir para Login)
 
 #### 4) Modelagem e Migrações (PostgreSQL)
 
 - [ ] Modelos:
-  - [ ] User: id, name, email (único), password_hash, createdAt, updatedAt
-  - [ ] Movie: id, title, originalTitle, releaseDate, duration, description, budget, posterUrl, createdByUserId, createdAt, updatedAt
-  - [ ] (Opcional) Genre/Tag + tabela relacional
-- [ ] Criar migrações iniciais
-- [ ] Seeds opcionais (usuário teste + filmes)
+  - [x] User: id, name, email (único), password_hash, createdAt, updatedAt
+  - [x] Movie: id, title, originalTitle, releaseDate, duration, description, budget, posterUrl, createdByUserId, createdAt, updatedAt
+  - [x] Genre/Tag + tabela relacional
+- [x] Criar migrações iniciais
+- [x] Seeds opcionais (usuário teste + filmes)
 - [ ] Script de reset/refresh do banco para dev
 
 #### 5) Upload/Armazenamento de Imagens
 
-- [ ] Configurar provedor (S3)
-- [ ] Backend: presigned URL ou upload via backend
-- [ ] Restrições: tamanho máximo, mime-types permitidos
-- [ ] Salvar URL no registro do filme
+- [x] Configurar provedor (S3)
+- [x] Backend: presigned URL ou upload via backend
+- [x] Restrições: tamanho máximo, mime-types permitidos
+- [x] Salvar URL no registro do filme
 - [ ] Fallback quando não houver imagem
 
 #### 6) E-mail de Lembrete (Lançamento Futuro)
@@ -78,7 +78,7 @@ Use esta checklist para organizar o trabalho e acompanhar o progresso. Marque ca
   - [x] POST /auth/signup
   - [x] POST /auth/login
   - [ ] GET /movies (lista com paginação, busca, filtros)
-  - [ ] POST /movies (criar — autenticado)
+  - [x] POST /movies (criar — autenticado)
   - [ ] GET /movies/:id (detalhe — restrito ao dono)
   - [ ] PATCH /movies/:id (editar — dono)
   - [ ] DELETE /movies/:id (excluir — dono)
@@ -88,13 +88,13 @@ Use esta checklist para organizar o trabalho e acompanhar o progresso. Marque ca
   - [ ] Duração (min/max)
   - [ ] Data de lançamento (início e fim)
   - [ ] +1 filtro adicional (ex.: orçamento min/max, gênero)
-- [ ] Validação (DTOs/schemas) e mensagens de erro padronizadas
-- [ ] Serialização e exclusão de campos sensíveis
+- [x] Validação (DTOs/schemas) e mensagens de erro padronizadas
+- [x] Serialização e exclusão de campos sensíveis
 
 #### 8) Permissões (Propriedade do Recurso)
 
 - [ ] Restringir visualizar/editar/excluir ao usuário criador
-- [ ] Middleware que verifica createdByUserId
+- [x] Middleware que verifica createdByUserId
 - [ ] Documentar no README: lista mostra todos os filmes, mas detalhes/edição/exclusão só do dono
 
 #### 9) Frontend — Infraestrutura
