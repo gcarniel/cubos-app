@@ -29,7 +29,15 @@ const movieFilterStore = create<MovieFiltersStore>((set) => ({
   },
   openFiltersModal: false,
   setOpenFiltersModal: (open: boolean) => set({ openFiltersModal: open }),
-  setFilters: (filters: Filters) => set({ filters }),
+  setFilters: (filters: Filters) =>
+    set((state) => ({
+      ...state,
+      filters,
+      pagination: {
+        ...state.pagination,
+        currentPage: state.filters.page || 1,
+      },
+    })),
   setPagination: (pagination: MovieWithPagination) => set({ pagination }),
 }))
 

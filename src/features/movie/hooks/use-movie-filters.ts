@@ -34,6 +34,7 @@ export function useMovieFilters() {
       ...data,
       minDuration: Number(data.minDuration),
       maxDuration: Number(data.maxDuration),
+      page: 1,
     })
     form.reset()
     setOpenFiltersModal(false)
