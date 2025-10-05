@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 export function useMovieDetail(id: string) {
   const router = useRouter()
   const { data: session } = useSession()
-  const { data } = useQuery<Movie>({
+  const { data, isLoading, isFetching } = useQuery<Movie>({
     queryKey: ['movies-detail', id],
     queryFn: () => api.get(`/movies/${id}`).then((res) => res.data),
     retry: 1,
@@ -44,5 +44,7 @@ export function useMovieDetail(id: string) {
   return {
     data,
     handleDeleteMovie,
+    isLoading,
+    isFetching,
   }
 }

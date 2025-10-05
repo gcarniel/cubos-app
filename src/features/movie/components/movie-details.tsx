@@ -8,9 +8,33 @@ import CircularProgress from './movie-vote'
 import { MovieGenreTag } from './movie-genre-tag'
 import ReactPlayer from 'react-player'
 import { useMovieDetail } from '../hooks/use-movies-detail'
+import { useMovieStore } from '../store/movie-store'
+import { MovieRegister } from './movie-register'
+
+import cubosLogoMobile from '@/assets/cubos-logo-mobile.svg'
 
 export function MovieDetails({ id }: { id: string }) {
-  const { data: movie, handleDeleteMovie } = useMovieDetail(id)
+  const {
+    data: movie,
+    handleDeleteMovie,
+    isLoading,
+    isFetching,
+  } = useMovieDetail(id)
+  const { setMovie } = useMovieStore()
+
+  if (isLoading || isFetching) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <Image
+          src={cubosLogoMobile}
+          alt="loading"
+          width={100}
+          height={100}
+          className="animate-spin w-20 h-20 duration-500"
+        />
+      </div>
+    )
+  }
 
   if (!movie) {
     return (
@@ -49,7 +73,7 @@ export function MovieDetails({ id }: { id: string }) {
             >
               Deletar
             </Button>
-            <Button>Editar</Button>
+            <Button onClick={() => setMovie(movie)}>Editar</Button>
           </div>
         </section>
 
@@ -57,7 +81,7 @@ export function MovieDetails({ id }: { id: string }) {
         <section className="flex gap-4 font-montserrat">
           <div className="min-w-[274px]">
             <Image
-              src={movie?.coverUrl || ''}
+              src={movie?.posterUrl || ''}
               alt=""
               width={374}
               height={560}
@@ -152,6 +176,8 @@ export function MovieDetails({ id }: { id: string }) {
           controls
         />
       </section>
+
+      <MovieRegister />
     </main>
   )
 }

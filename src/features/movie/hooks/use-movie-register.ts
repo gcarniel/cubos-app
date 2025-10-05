@@ -4,13 +4,16 @@ import {
   MovieRegister,
   movieRegisterSchema,
 } from '../types/movies-register-schema'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import api from '@/lib/api'
 import { toast } from 'sonner'
 import { useMovieStore } from '../store/movie-store'
+import { useEffect } from 'react'
+import { useSession } from 'next-auth/react'
 
 export function useMovieRegister() {
-  const { setOpenRegisterModal } = useMovieStore()
+  const { data: session } = useSession()
+  const { setOpenRegisterModal, movie, setMovie } = useMovieStore()
   const form = useForm<MovieRegister>({
     resolver: zodResolver(movieRegisterSchema),
     defaultValues: {
@@ -33,8 +36,29 @@ export function useMovieRegister() {
     },
   })
 
-  const { mutateAsync } = useMutation({
+  const queryClient = useQueryClient()
+
+  const { mutateAsync: createMovie } = useMutation({
     mutationFn: (data: MovieRegister) => api.post('/movies', data),
+    onSuccess: () => {
+      toast.success('Filme adicionado com sucesso')
+      form.reset()
+      setOpenRegisterModal(false)
+    },
+  })
+
+  const { mutateAsync: updateMovie } = useMutation({
+    mutationFn: (data: MovieRegister) => api.put(`/movies/${data.id}`, data),
+    onSuccess: () => {
+      toast.success('Filme editado com sucesso')
+      form.reset()
+
+      queryClient.invalidateQueries({
+        queryKey: ['movies-detail', movie?.id],
+      })
+      setMovie(null)
+      setOpenRegisterModal(false)
+    },
   })
 
   const { mutateAsync: uploadFile, isPending: isUploadingFile } = useMutation({
@@ -53,10 +77,19 @@ export function useMovieRegister() {
   })
 
   const handleSubmit = async (data: MovieRegister) => {
-    await mutateAsync(data)
-    toast.success('Filme adicionado com sucesso')
-    form.reset()
-    setOpenRegisterModal(false)
+    if (data.id) {
+      if (!movie?.id) return
+      if (session?.user?.id !== movie.userId) {
+        toast.warning('Acesso negado', {
+          description:
+            'Você não tem permissão para editar filme cadastrado por outro usuário',
+        })
+        return
+      }
+      await updateMovie({ ...data, id: movie?.id })
+    } else {
+      await createMovie(data)
+    }
   }
 
   const handleUploadFile = async (file: File) => {
@@ -74,6 +107,33 @@ export function useMovieRegister() {
     toast.success('Arquivo enviado com sucesso')
     return response.data
   }
+
+  useEffect(() => {
+    if (movie) {
+      form.reset({
+        id: movie.id,
+        title: movie.title,
+        originalTitle: movie.originalTitle,
+        duration: movie.duration,
+        budget: movie.budget,
+        revenue: movie.revenue,
+        profit: movie.profit,
+        sinopsis: movie.sinopsis,
+        genre: movie.genre,
+        language: movie.language,
+        releaseDate: movie.releaseDate
+          ? new Date(movie.releaseDate)
+          : new Date(),
+        popularity: movie.popularity,
+        voteAverage: movie.voteAverage,
+        voteCount: movie.voteCount,
+        posterUrl: movie.posterUrl,
+        coverUrl: movie.coverUrl,
+        trailerUrl: movie.trailerUrl,
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [movie])
 
   return {
     form,

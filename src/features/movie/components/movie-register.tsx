@@ -214,6 +214,8 @@ export function MovieRegister() {
                     <InputFile
                       accept="image/jpeg, image/png, image/jpg, image/webp"
                       buttonLabel="Upload de poster"
+                      value={field.value}
+                      onRemoveFileUrl={() => field.onChange(null)}
                       onChange={async (file) => {
                         const { url } = await handlers.handleUploadFile(file)
                         field.onChange(url)
@@ -233,6 +235,8 @@ export function MovieRegister() {
                     <InputFile
                       accept="image/jpeg, image/png, image/jpg, image/webp"
                       buttonLabel="Upload de cover"
+                      value={field.value}
+                      onRemoveFileUrl={() => field.onChange(null)}
                       onChange={async (file) => {
                         const { url } = await handlers.handleUploadFile(file)
                         field.onChange(url)
@@ -262,7 +266,7 @@ export function MovieRegister() {
               Cancelar
             </Button>
             <Button type="submit" loading={data.isUploadingFile}>
-              Adicionar Filme
+              {form.getValues('id') ? 'Editar' : 'Adicionar'} Filme
             </Button>
           </div>
         </form>
