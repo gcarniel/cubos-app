@@ -1,20 +1,23 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { movies } from '../types/movies-mock'
 import Image from 'next/image'
 import { MovieLabel } from './movie-label'
 import { formatCurrency } from '@/lib/utils'
 import CircularProgress from './movie-vote'
 import { MovieGenreTag } from './movie-genre-tag'
 import ReactPlayer from 'react-player'
+import { useMovieDetail } from '../hooks/use-movies-detail'
 
 export function MovieDetails({ id }: { id: string }) {
-  const movie = movies.find((movie) => movie.id === id)
+  const { data: movie } = useMovieDetail(id)
 
   if (!movie) {
     return <div>Movie not found</div>
   }
+
+  const isReleased =
+    new Date(movie?.releaseDate) > new Date() ? 'Em breve' : 'Lançado'
 
   console.log(movie)
   return (
@@ -24,7 +27,7 @@ export function MovieDetails({ id }: { id: string }) {
         className="p-8 flex flex-col gap-4"
         style={{
           backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.85) 100%, rgba(0,0,0,.85) 100%),
-            url(${movie?.cover_url || movie?.poster_path})`,
+            url(${movie?.coverUrl || movie?.posterUrl})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -34,7 +37,7 @@ export function MovieDetails({ id }: { id: string }) {
         <section className="flex gap-2 font-montserrat">
           <div className="flex flex-col gap-1 flex-1 font-montserrat">
             <p className="text-2xl font-bold">{movie?.title}</p>
-            <p className="text-base">{movie?.original_title}</p>
+            <p className="text-base">{movie?.originalTitle}</p>
           </div>
           <div className="flex gap-2">
             <Button variant="secondary">Deletar</Button>
@@ -45,11 +48,16 @@ export function MovieDetails({ id }: { id: string }) {
         {/* content */}
         <section className="flex gap-4 font-montserrat">
           <div className="min-w-[274px]">
-            <Image src={movie?.cover_url} alt="" width={374} height={560} />
+            <Image
+              src={movie?.coverUrl || ''}
+              alt=""
+              width={374}
+              height={560}
+            />
           </div>
           <div className="flex flex-col gap-4 w-full">
             <div className="flex flex-col lg:flex-row gap-2 font-montserrat">
-              <p className="flex-1 w-full">{movie?.original_title}</p>
+              <p className="flex-1 w-full">{movie?.originalTitle}</p>
               <div className="flex items-center gap-2">
                 <MovieLabel
                   label="popularidade"
@@ -58,12 +66,12 @@ export function MovieDetails({ id }: { id: string }) {
                 />
                 <MovieLabel
                   label="votos"
-                  value={movie?.vote_count || ''}
+                  value={movie?.voteCount || ''}
                   className="w-fit"
                 />
 
                 <div>
-                  <CircularProgress value={movie?.vote_average || 0} />
+                  <CircularProgress value={movie?.voteAverage || 0} />
                 </div>
               </div>
             </div>
@@ -79,7 +87,7 @@ export function MovieDetails({ id }: { id: string }) {
                     <p>Generos</p>
                     <div className="flex gap-2">
                       {movie?.genre.map((genre) => (
-                        <MovieGenreTag key={genre} label={genre} />
+                        <MovieGenreTag key={genre.id} label={genre.name} />
                       ))}
                     </div>
                   </div>
@@ -91,8 +99,8 @@ export function MovieDetails({ id }: { id: string }) {
                   <MovieLabel
                     label="lançamento"
                     value={
-                      movie?.release_date
-                        ? new Date(movie?.release_date).toLocaleDateString(
+                      movie?.releaseDate
+                        ? new Date(movie?.releaseDate).toLocaleDateString(
                             'pt-BR',
                           )
                         : ''
@@ -102,7 +110,7 @@ export function MovieDetails({ id }: { id: string }) {
                 </div>
 
                 <div className="flex-1 flex gap-2 justify-between">
-                  <MovieLabel label="Situação" value={movie?.status || ''} />
+                  <MovieLabel label="Situação" value={isReleased} />
                   <MovieLabel label="Idioma" value={movie?.language || ''} />
                 </div>
 
@@ -130,7 +138,7 @@ export function MovieDetails({ id }: { id: string }) {
       <section className="flex flex-col gap-2 h-full p-8 lg:min-h-[760px]">
         <p className="font-montserrat text-2xl font-bold"> Trailer</p>
         <ReactPlayer
-          src={movie?.trailer_url}
+          src={movie?.trailerUrl}
           width={'100%'}
           height={'100%'}
           controls
