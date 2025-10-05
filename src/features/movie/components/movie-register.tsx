@@ -27,7 +27,7 @@ export function MovieRegister() {
 
   return (
     <Sheet open={openRegisterModal} onOpenChange={setOpenRegisterModal}>
-      <SheetContent className="md:w-md p-4">
+      <SheetContent className="w-full sm:w-md p-4">
         <SheetHeader>
           <SheetTitle className="font-bold ">Adicionar Filme</SheetTitle>
         </SheetHeader>
@@ -69,7 +69,7 @@ export function MovieRegister() {
               <ShowError name="genre" errors={form.formState.errors} />
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full justify-between">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="budget">Orçamento (R$)</Label>
                 <Input
@@ -93,7 +93,9 @@ export function MovieRegister() {
                 />
                 <ShowError name="revenue" errors={form.formState.errors} />
               </div>
+            </div>
 
+            <div className="flex gap-2 w-full justify-between">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="profit">Lucro (R$)</Label>
                 <Input
@@ -105,9 +107,23 @@ export function MovieRegister() {
                 />
                 <ShowError name="profit" errors={form.formState.errors} />
               </div>
+
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="vote_count">Qtd. votos</Label>
+                <Input
+                  id="vote_count"
+                  type="text"
+                  {...registerWithMask('voteCount', 'decimal', {
+                    valueAsNumber: true,
+                    allowMinus: false,
+                    min: 1,
+                  })}
+                />
+                <ShowError name="voteCount" errors={form.formState.errors} />
+              </div>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full justify-between">
               <div className="flex flex-col gap-2">
                 <Label
                   htmlFor="popularity"
@@ -147,20 +163,6 @@ export function MovieRegister() {
                 />
                 <ShowError name="voteAverage" errors={form.formState.errors} />
               </div>
-
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="vote_count">Qtd. votos</Label>
-                <Input
-                  id="vote_count"
-                  type="text"
-                  {...registerWithMask('voteCount', 'decimal', {
-                    valueAsNumber: true,
-                    allowMinus: false,
-                    min: 1,
-                  })}
-                />
-                <ShowError name="voteCount" errors={form.formState.errors} />
-              </div>
             </div>
 
             <div className="flex gap-2">
@@ -186,26 +188,26 @@ export function MovieRegister() {
                 <Input id="language" type="text" {...register('language')} />
                 <ShowError name="language" errors={form.formState.errors} />
               </div>
-
-              <div className="flex flex-col gap-2 w-full">
-                <Label htmlFor="release_date">Data lançamento</Label>
-                <Controller
-                  name="releaseDate"
-                  control={form.control}
-                  render={({ field }) => (
-                    <DatePicker
-                      className="w-full"
-                      value={field.value}
-                      onChange={(value) => field.onChange(value)}
-                    />
-                  )}
-                />
-                <ShowError name="releaseDate" errors={form.formState.errors} />
-              </div>
             </div>
 
-            <div className="flex gap-2 justify-between">
-              <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
+              <Label htmlFor="release_date">Data lançamento</Label>
+              <Controller
+                name="releaseDate"
+                control={form.control}
+                render={({ field }) => (
+                  <DatePicker
+                    className="w-full"
+                    value={field.value}
+                    onChange={(value) => field.onChange(value)}
+                  />
+                )}
+              />
+              <ShowError name="releaseDate" errors={form.formState.errors} />
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-2 justify-between">
+              <div className="flex flex-col gap-2 w-full">
                 <Label htmlFor="cover_url">Poster</Label>
                 <Controller
                   name="posterUrl"
@@ -262,7 +264,11 @@ export function MovieRegister() {
           </section>
 
           <div className="flex justify-end items-end gap-2 h-fit">
-            <Button type="button" variant="secondary">
+            <Button
+              onClick={() => setOpenRegisterModal(false)}
+              type="button"
+              variant="secondary"
+            >
               Cancelar
             </Button>
             <Button type="submit" loading={data.isUploadingFile}>
